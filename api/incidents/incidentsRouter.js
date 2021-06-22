@@ -121,7 +121,7 @@ router.get('/getincidents', async (req, res) => {
 
     const queryResponse = incidents.map((incident) => {
       incident.src = JSON.parse(incident.src);
-      incident.categories = JSON.parse(incident.categories);
+      incident.tags = JSON.parse(incident.tags);
       return incident;
     });
     res.json(queryResponse);

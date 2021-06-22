@@ -1,42 +1,34 @@
 exports.up = function (knex) {
   return knex.schema
     .raw('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"')
-    .createTable('incidents', (incidents) => {
-      incidents.increments('id');
-      incidents.date('date');
-      incidents.date('added_on');
-      incidents.text('src');
-      incidents.string('incident_id');
-      incidents.string('city').notNullable();
-      incidents.string('state').notNullable();
-      incidents.float('lat').notNullable();
-      incidents.float('long').notNullable();
-      incidents.string('title').notNullable();
-      incidents.varchar('desc', 10000);
-      incidents.string('categories');
-      incidents.string('force_rank');
+    .createTable('potential_incidents', (potential_incidents) => {
+      potential_incidents.increments('id');
+      potential_incidents.text('city');
+      potential_incidents.text('confidence');
+      potential_incidents.date('date_created');
+      potential_incidents.text('force_rank');
+      potential_incidents.text('responses');
+      potential_incidents.text('state');
+      potential_incidents.text('tags');
+      potential_incidents.text('tweet_id');
+      potential_incidents.text('twitter_text');
+      potential_incidents.text('twitterbot_tweet_id');
+      potential_incidents.text('user_name');
     })
-    .createTable('twitter_incidents', (twitter_incidents) => {
-      twitter_incidents.integer('id').unique().primary().notNullable();
-      twitter_incidents.date('date');
-      twitter_incidents.string('user_name');
-      twitter_incidents.string('user_description');
-      twitter_incidents.string('user_location');
-      twitter_incidents.string('coordinates');
-      twitter_incidents.string('geo');
-      twitter_incidents.string('incident_id');
-      twitter_incidents.string('src');
-      twitter_incidents.string('city'); // need
-      twitter_incidents.string('state'); // need
-      twitter_incidents.float('lat'); // need
-      twitter_incidents.float('long'); // need
-      twitter_incidents.string('title'); // need
-      twitter_incidents.varchar('desc', 10000);
-      twitter_incidents.string('language');
-      twitter_incidents.string('force_rank');
-      twitter_incidents.boolean('pending');
-      twitter_incidents.boolean('approved');
-      twitter_incidents.boolean('rejected');
+    .createTable('incidents_w_confidence', (incidents_w_confidence) => {
+      incidents_w_confidence.integer('id').unique().primary().notNullable();
+      incidents_w_confidence.text('case_id').unique().notNullable();
+      incidents_w_confidence.text('city');
+      incidents_w_confidence.float('confidence');
+      incidents_w_confidence.date('dates');
+      incidents_w_confidence.text('description');
+      incidents_w_confidence.text('force_rank');
+      incidents_w_confidence.float('lat');
+      incidents_w_confidence.text('links');
+      incidents_w_confidence.float('lon');
+      incidents_w_confidence.text('state');
+      incidents_w_confidence.text('tags');
+      incidents_w_confidence.text('title');
     })
     .createTable('profiles', function (table) {
       table.string('id').notNullable().unique().primary();
@@ -48,7 +40,7 @@ exports.up = function (knex) {
 };
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists('incidents')
-    .dropTableIfExists('twitter_incidents')
+    .dropTableIfExists('potential_incidents')
+    .dropTableIfExists('incidents_w_confidence')
     .dropTableIfExists('profiles');
 };
