@@ -33,7 +33,7 @@ const dataRouter = require('./util/dataRouter');
 //###[ Models ]###
 const {
   dsUpdateFetch,
-  getLastId,
+  // getLastId, assinged but not used
   dsTwitterUpdateFetch,
 } = require('./dsService/dsUtil');
 

@@ -75,7 +75,7 @@ async function createIncident(incident) {
     title: incident.title,
     desc: incident.desc,
     categories: JSON.stringify(incident.categories),
-    force_rank: incident.force_rank
+    force_rank: incident.force_rank,
   };
   return db('incidents').insert(newIncident);
 }
