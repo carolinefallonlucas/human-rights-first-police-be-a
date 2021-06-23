@@ -120,8 +120,8 @@ router.get('/getincidents', async (req, res) => {
     const incidents = await Incidents.getAllIncidents();
 
     const queryResponse = incidents.map((incident) => {
-      incident.src = JSON.parse(incident.src);
-      incident.tags = JSON.parse(incident.tags);
+      incident.src = JSON.parse(incident.links);
+      incident.categories = JSON.parse(incident.tags);
       return incident;
     });
     res.json(queryResponse);
@@ -478,7 +478,7 @@ router.get('/download', async (req, res) => {
       });
     }
 
-    console.log(incidents)
+    console.log(incidents);
 
     // Create CSV from data and serve it to User:
     parseAsync(incidents, { fields }).then((result) => {
