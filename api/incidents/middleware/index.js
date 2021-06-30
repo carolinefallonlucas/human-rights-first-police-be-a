@@ -1,18 +1,19 @@
 const db = require('../../../data/db-config');
-
+const express = require("ex[ress"); 
 module.exports = {
   validateIncidents,
 };
 
 
-/**
- * 
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
- * 
- * This middleware is not currently in use. Current schema elects to accept all incidents then we filtered out incidents if they were missing necessary keys on the client side
- */
+
+//**  
+* @param {express.Request} req 
+* @param {express.Response} res 
+* @param {express.NextFunction} next 
+  * /
+
+ // This middleware is not currently in use. Current schema elects to accept all incidents then we filtered out incidents if they were missing necessary keys on the client side
+
 function validateIncidents(req, res, next) {
   req.body = req.body.filter((incident) => {
     if (

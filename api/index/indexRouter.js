@@ -28,9 +28,9 @@ router.get('/', function (req, res) {
   res.status(200).json({ api: 'Hello World', timestamp: Date.now() });
 });
 
-// const protected = require('../middleware/authRequired');
-// router.get('/protected-example', protected, (req, res) => {
-//   res.status(200).json({ api: 'Hello admin', timestamp: Date.now() });
-// });
+const protectedPoint = require('../middleware/authRequired');
+router.get('/protected-example', protectedPoint, (req, res) => {
+  res.status(200).json({ api: 'Hello admin', timestamp: Date.now() });
+});
 
 module.exports = router;
